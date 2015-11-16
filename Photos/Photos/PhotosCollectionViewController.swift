@@ -17,7 +17,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         let api = InstagramAPI()
         api.loadPhotos(didLoadPhotos)
         // FILL ME IN
-        self.collectionView?.backgroundColor = UIColor.yellowColor()
+//        self.collectionView?.backgroundColor = UIColor.yellowColor()
         
     }
 
@@ -33,7 +33,7 @@ class PhotosCollectionViewController: UICollectionViewController {
                 self.loadImageForCell(self.photos[indexPath.row], imageView: cell.image)
             }
         }
-        cell.image.sizeToFit()
+
         return cell
     }
     
@@ -46,26 +46,26 @@ class PhotosCollectionViewController: UICollectionViewController {
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
+        return 2
     }
     
-    func collectionView(collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
-            let screen = UIScreen.mainScreen().bounds.size
-            return CGSizeMake(screen.width * 0.5, screen.height * 0.3)
-    }
+//    func collectionView(collectionView: UICollectionView,
+//        layout collectionViewLayout: UICollectionViewLayout,
+//        sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+//        
+//            let screen = UIScreen.mainScreen().bounds.size
+//            return CGSizeMake(screen.width * 0.3, screen.height * 0.3)
+//    }
     
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("detailSegue", sender: indexPath)
+        performSegueWithIdentifier("detailSeg", sender: indexPath)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if(segue.identifier == "detailSegue") {
+        if(segue.identifier == "detailSeg") {
             let indexPath = sender as! NSIndexPath
-            let detailView = segue.destinationViewController.view as! DetailViewController
+            let detailView = segue.destinationViewController.view as! DetailView
             if(photos != nil) {
                 loadImageForCell(photos[indexPath.row], imageView: detailView.photo)
                 let formatter = NSDateFormatter()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIView {
+class DetailView: UIView {
 
     
     @IBOutlet weak var photo: UIImageView!
@@ -24,7 +24,6 @@ class DetailViewController: UIView {
         } else {
             heart.text = "like"
         }
-        img?.liked = !img!.liked
         
     }
     
