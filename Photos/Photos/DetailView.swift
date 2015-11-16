@@ -20,9 +20,9 @@ class DetailView: UIView {
     
     @IBAction func like(sender: AnyObject) {
         if (img?.liked == false) {
-           heart.text = "liked"
+           heart.text = "♥"
         } else {
-            heart.text = "like"
+            heart.text = "♡"
         }
         
     }

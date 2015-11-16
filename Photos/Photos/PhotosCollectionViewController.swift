@@ -62,27 +62,27 @@ class PhotosCollectionViewController: UICollectionViewController {
         performSegueWithIdentifier("detailSeg", sender: indexPath)
     }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if(segue.identifier == "detailSeg") {
-//            let indexPath = sender as! NSIndexPath
-//            let detailView = segue.destinationViewController.view as! DetailView
-//            if(photos != nil) {
-//                loadImageForCell(photos[indexPath.row], imageView: detailView.photo)
-//                let formatter = NSDateFormatter()
-//                formatter.dateStyle = .MediumStyle
-//                formatter.timeStyle = .MediumStyle
-//                detailView.datePosted.text! += formatter.stringFromDate(photos[indexPath.row].datePosted)
-//                detailView.username.text! += photos[indexPath.row].username
-//                detailView.numLikes.text! += photos[indexPath.row].likes.description
-//                detailView.img = photos[indexPath.row]
-//                if(photos[indexPath.row].liked == false) {
-//                    detailView.heart.text = "like"
-//                } else {
-//                    detailView.heart.text = "liked"
-//                }
-//            }
-//        }
-//    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "detailSeg") {
+            let indexPath = sender as! NSIndexPath
+            let detailView = segue.destinationViewController.view as! DetailView
+            if(photos != nil) {
+                loadImageForCell(photos[indexPath.row], imageView: detailView.photo)
+                let formatter = NSDateFormatter()
+                formatter.dateStyle = .MediumStyle
+                formatter.timeStyle = .MediumStyle
+                detailView.datePosted.text! += formatter.stringFromDate(photos[indexPath.row].datePosted)
+                detailView.username.text! += photos[indexPath.row].username
+                detailView.numLikes.text! += photos[indexPath.row].likes.description
+                detailView.img = photos[indexPath.row]
+                if(photos[indexPath.row].liked == false) {
+                    detailView.heart.text = "♡"
+                } else {
+                    detailView.heart.text = "♥"
+                }
+            }
+        }
+    }
     
     /* Creates a session from a photo's url to download data to instantiate a UIImage.
        It then sets this as the imageView's image. */
