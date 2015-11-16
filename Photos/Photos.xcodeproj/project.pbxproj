@@ -15,6 +15,8 @@
 		3A1683A31BE9B717009F39C5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1683A21BE9B717009F39C5 /* Utils.swift */; };
 		3A1683A71BE9C593009F39C5 /* InstagramAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1683A61BE9C593009F39C5 /* InstagramAPI.swift */; };
 		3A1683A91BE9C5A7009F39C5 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1683A81BE9C5A7009F39C5 /* Photo.swift */; };
+		41A4EFD71BF9CCFD00C3B9CE /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A4EFD61BF9CCFD00C3B9CE /* DetailViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		41A4EFDB1BF9D20800C3B9CE /* PhotoCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A4EFDA1BF9D20800C3B9CE /* PhotoCellController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		3A1683A21BE9B717009F39C5 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		3A1683A61BE9C593009F39C5 /* InstagramAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstagramAPI.swift; sourceTree = "<group>"; };
 		3A1683A81BE9C5A7009F39C5 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		41A4EFD61BF9CCFD00C3B9CE /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		41A4EFDA1BF9D20800C3B9CE /* PhotoCellController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCellController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				3A1683911BE9B642009F39C5 /* PhotosCollectionViewController.swift */,
+				41A4EFD61BF9CCFD00C3B9CE /* DetailViewController.swift */,
+				41A4EFDA1BF9D20800C3B9CE /* PhotoCellController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -170,7 +176,9 @@
 			files = (
 				3A1683921BE9B642009F39C5 /* PhotosCollectionViewController.swift in Sources */,
 				3A1683901BE9B642009F39C5 /* AppDelegate.swift in Sources */,
+				41A4EFDB1BF9D20800C3B9CE /* PhotoCellController.swift in Sources */,
 				3A1683A31BE9B717009F39C5 /* Utils.swift in Sources */,
+				41A4EFD71BF9CCFD00C3B9CE /* DetailViewController.swift in Sources */,
 				3A1683A71BE9C593009F39C5 /* InstagramAPI.swift in Sources */,
 				3A1683A91BE9C5A7009F39C5 /* Photo.swift in Sources */,
 			);
