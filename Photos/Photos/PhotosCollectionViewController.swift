@@ -65,20 +65,20 @@ class PhotosCollectionViewController: UICollectionViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "detailSegue") {
             let indexPath = sender as! NSIndexPath
-            let photoDetailView = segue.destinationViewController.view as! DetailViewController
+            let detailView = segue.destinationViewController.view as! DetailViewController
             if(photos != nil) {
-                loadImageForCell(photos[indexPath.row], imageView: photoDetailView.photo)
+                loadImageForCell(photos[indexPath.row], imageView: detailView.photo)
                 let formatter = NSDateFormatter()
                 formatter.dateStyle = .MediumStyle
                 formatter.timeStyle = .MediumStyle
-                photoDetailView.datePosted.text! += formatter.stringFromDate(photos[indexPath.row].datePosted)
-                photoDetailView.username.text! += photos[indexPath.row].username
-                photoDetailView.numLikes.text! += photos[indexPath.row].likes.description
-                photoDetailView.img = photos[indexPath.row]
+                detailView.datePosted.text! += formatter.stringFromDate(photos[indexPath.row].datePosted)
+                detailView.username.text! += photos[indexPath.row].username
+                detailView.numLikes.text! += photos[indexPath.row].likes.description
+                detailView.img = photos[indexPath.row]
                 if(photos[indexPath.row].liked == false) {
-                    photoDetailView.heart.text = "♡"
+                    detailView.heart.text = "like"
                 } else {
-                    photoDetailView.heart.text = "❤"
+                    detailView.heart.text = "liked"
                 }
             }
         }

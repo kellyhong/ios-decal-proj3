@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIView {
 
     
     @IBOutlet weak var photo: UIImageView!
@@ -20,9 +20,9 @@ class DetailViewController: UIViewController {
     
     @IBAction func like(sender: AnyObject) {
         if (img?.liked == false) {
-           heart.text = "❤"
+           heart.text = "liked"
         } else {
-            heart.text = "♡"
+            heart.text = "like"
         }
         img?.liked = !img!.liked
         
