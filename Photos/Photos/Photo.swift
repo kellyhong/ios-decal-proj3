@@ -1,4 +1,3 @@
-//
 //  Photo.swift
 //  Photos
 //
@@ -13,24 +12,30 @@ class Photo {
     var likes : Int!
     /* The string of the url to the photo file. */
     var url : String!
-    var urlimg : String!
+    
+    /* The url for the thumbnail of the image */
+    var thumbnail_url : String!
+    
     /* The username of the photographer. */
     var username : String!
+    /* The date when the photographer posted the file. */
+    var date : String!
     
-    var liked: Bool
-    var datePosted: NSDate!
-
+    var liked: Bool! = false
+    
     /* Parses a NSDictionary and creates a photo object. */
     init (data: NSDictionary) {
         // FILL ME IN
-        // HINT: use nested .valueForKey() calls, and then cast using 'as! TYPE'
-        username = (data.valueForKey("user") as! NSDictionary).valueForKey("username") as! String
-        url = ((data.valueForKey("images") as! NSDictionary).valueForKey("low_resolution") as! NSDictionary).valueForKey("url") as! String
-        likes = (data.valueForKey("likes") as! NSDictionary).valueForKey("count") as! Int
-        liked = false
-        let timestamp = (data.valueForKey("created_time")) as! String
-        datePosted = NSDate(timeIntervalSince1970: Double(timestamp)!)
+        username = (data.valueForKey("user") as! NSDictionary!).valueForKey("username") as! String!
         
+        url = (((data.valueForKey("images")) as! NSDictionary!).valueForKey("standard_resolution") as! NSDictionary!).valueForKey("url") as! String!
+        
+        thumbnail_url = (((data.valueForKey("images")) as! NSDictionary!).valueForKey("thumbnail") as! NSDictionary!).valueForKey("url") as! String!
+        
+        likes = ((data.valueForKey("likes")) as! NSDictionary!).valueForKey("count") as! Int!
+        
+        date = data.valueForKey("created_time") as! String!
+        // HINT: use nested .valueForKey() calls, and then cast using 'as! TYPE'
     }
-
+    
 }

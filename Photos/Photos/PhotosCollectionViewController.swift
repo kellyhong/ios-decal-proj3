@@ -8,17 +8,17 @@
 
 import UIKit
 
-class PhotosCollectionViewController: UICollectionViewController {
+class PhotosCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var photos: [Photo]!
-    
+    var photoIndex: Int!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let api = InstagramAPI()
         api.loadPhotos(didLoadPhotos)
         // FILL ME IN
-//        self.collectionView?.backgroundColor = UIColor.yellowColor()
-        
+        photos = [Photo]()
+        self.collectionView?.backgroundColor = UIColor.whiteColor()
     }
 
     /* 
@@ -27,81 +27,63 @@ class PhotosCollectionViewController: UICollectionViewController {
      */
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! PhotoCellController
-        if ((photos) != nil) {
-            dispatch_async(dispatch_get_main_queue()) {
-                self.loadImageForCell(self.photos[indexPath.row], imageView: cell.image)
-            }
-        }
-
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("myCell", forIndexPath: indexPath) as! MyCollectionViewCell
+        loadImageForCell(photos[indexPath.row], imageView: cell.myImageView)
+        
         return cell
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if ((photos) != nil) {
-            return photos.count
-        } else {
-            return 0
+        return photos.count
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.photoIndex = indexPath.row
+        performSegueWithIdentifier("MyImageViewController", sender: self)
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "MyImageViewController" {
+            let photo:Photo! = photos[self.photoIndex]
+            let targetVC = segue.destinationViewController as! MyImageViewController
+            targetVC.photo = photo
         }
     }
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 2
+        return 1
     }
     
-//    func collectionView(collectionView: UICollectionView,
-//        layout collectionViewLayout: UICollectionViewLayout,
-//        sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-//        
-//            let screen = UIScreen.mainScreen().bounds.size
-//            return CGSizeMake(screen.width * 0.3, screen.height * 0.3)
-//    }
-    
-    
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("detailSeg", sender: indexPath)
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSize(width: 125, height: 125)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if(segue.identifier == "detailSeg") {
-            let indexPath = sender as! NSIndexPath
-            let detailView = segue.destinationViewController.view as! DetailView
-            if(photos != nil) {
-                loadImageForCell(photos[indexPath.row], imageView: detailView.photo)
-                let formatter = NSDateFormatter()
-                formatter.dateStyle = .MediumStyle
-                formatter.timeStyle = .MediumStyle
-                detailView.datePosted.text! += formatter.stringFromDate(photos[indexPath.row].datePosted)
-                detailView.username.text! += photos[indexPath.row].username
-                detailView.numLikes.text! += photos[indexPath.row].likes.description
-                detailView.img = photos[indexPath.row]
-                if(photos[indexPath.row].liked == false) {
-                    detailView.heart.text = "♡"
-                } else {
-                    detailView.heart.text = "♥"
-                }
-            }
-        }
-    }
-    
-    /* Creates a session from a photo's url to download data to instantiate a UIImage.
+    /* Creates a session from a photo's url to download data to instantiate a UIImage. 
        It then sets this as the imageView's image. */
     func loadImageForCell(photo: Photo, imageView: UIImageView) {
-        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: photo.url)!) {
-            (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+        let myUrl = NSURL(string: photo.thumbnail_url)
+        let mySession = NSURLSession.sharedSession()
+        let task = mySession.dataTaskWithURL(myUrl!,completionHandler: {
+            (data, response, error) -> Void in
             if error == nil {
-                imageView.image = UIImage(data: data!)
+                let img = UIImage(data: data!)
+                imageView.image = img
             }
-        }
+        })
         task.resume()
         
     }
-    
+
     /* Completion handler for API call. DO NOT CHANGE */
     func didLoadPhotos(photos: [Photo]) {
         self.photos = photos
         self.collectionView!.reloadData()
     }
+    
+    
+    
+
     
 }
 

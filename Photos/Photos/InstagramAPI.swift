@@ -23,22 +23,30 @@ class InstagramAPI {
         *       d. Wait for completion of Photos array
         */
         // FILL ME IN
-        var url: NSURL
-        url = Utils.getPopularURL();
-        
-        let task = NSURLSession.sharedSession().dataTaskWithURL(url) {
+        let url: NSURL = Utils.getPopularURL();
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url, completionHandler: {
             (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             if error == nil {
                 //FIX ME
-                var photos = [Photo]()
+                
+                var photos: [Photo]! = [Photo]()
+                
                 do {
                     let feedDictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                    //The WHOLE JSON as a NSDictionary
+                    
                     // FILL ME IN, REMEMBER TO USE FORCED DOWNCASTING
-                    let images = feedDictionary.valueForKey("data") as! NSArray
-                    for(var i=0; i<images.count; i++) {
-                        let dict = images[i] as! NSDictionary
-                        photos.append(Photo(data: dict))
-                    }
+                    // let jsonPhotos = feedDictionary.valueForKey("photos") as! NSDictionary//This specifically gets the "photos"(NSDictionary of NSDicitionaries) part of the json (3a)
+                    
+                    let dictionaryArray = feedDictionary["data"] as! [NSDictionary!] //Makes Array of Dictionaries of ALL the data
+                    
+                    for photo in dictionaryArray{
+                        if photo["type"] as! String == "image"{//There are both "images" and "videos"
+                            photos.append(Photo(data: photo))
+                        }
+                        //(3C) & (3D) constructing/waiting for completion of Photos array
+                      }
+                    
                     // DO NOT CHANGE BELOW
                     let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
                     dispatch_async(dispatch_get_global_queue(priority, 0)) {
@@ -50,7 +58,7 @@ class InstagramAPI {
                     print("ERROR: \(error.localizedDescription)")
                 }
             }
-        }
+        })
         task.resume()
     }
 }
